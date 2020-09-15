@@ -1,0 +1,4 @@
+micronaut:
+  server:
+    host:"10.96.26.223"
+    port:8000
