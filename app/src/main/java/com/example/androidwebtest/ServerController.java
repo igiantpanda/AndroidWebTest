@@ -1,5 +1,6 @@
 package com.example.androidwebtest;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.Map;
@@ -12,11 +13,16 @@ import io.micronaut.runtime.Micronaut;
 
 public class ServerController {
     private static final String TAG = MainActivity.class.getSimpleName();
+    private Context mContext;
     private ApplicationContext mServerContext;
+
+    public ServerController(Context context) {
+        mContext = context;
+    }
 
     private PropertySource getPropertySource() {
         Map<String, Object> configMap = CollectionUtils.mapOf(
-                "micronaut.server.host", "10.96.26.223",
+                "micronaut.server.host", NetUtils.getWifiIp(mContext),
                 "micronaut.server.port", 8080);
 
         return PropertySource.of(Environment.ANDROID, configMap);
