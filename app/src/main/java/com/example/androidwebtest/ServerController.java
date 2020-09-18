@@ -35,10 +35,14 @@ public class ServerController {
             return;
         }
 
-        mServerContext = Micronaut.build(Environment.ANDROID)
-                .mainClass(this.getClass())
-                .propertySources(getPropertySource())
-                .start();
+        try {
+            mServerContext = Micronaut.build(Environment.ANDROID)
+                    .mainClass(this.getClass())
+                    .propertySources(getPropertySource())
+                    .start();
+        } catch (Exception e) {
+            Log.e(TAG, "startWebServer e:" + e);
+        }
 
         Log.v(TAG, "host:" + mServerContext.getProperty("micronaut.server.host", String.class));
         Log.v(TAG, "port:" + mServerContext.getProperty("micronaut.server.port", String.class));
@@ -48,6 +52,7 @@ public class ServerController {
         Log.d(TAG, "stopWebServer");
         if (null != mServerContext && mServerContext.isRunning()) {
             mServerContext.stop();
+            mServerContext = null;
             Log.d(TAG, "stopWebServer end");
         }
     }
