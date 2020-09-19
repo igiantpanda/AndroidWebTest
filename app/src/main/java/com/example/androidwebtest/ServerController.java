@@ -20,13 +20,13 @@ public class ServerController {
         mContext = context;
     }
 
-    private PropertySource getPropertySource() {
-        Map<String, Object> configMap = CollectionUtils.mapOf(
-                "micronaut.server.host", NetUtils.getWifiIp(mContext),
-                "micronaut.server.port", 8080);
-
-        return PropertySource.of(Environment.ANDROID, configMap);
-    }
+//    private PropertySource getPropertySource() {
+//        Map<String, Object> configMap = CollectionUtils.mapOf(
+//                "micronaut.server.host", NetUtils.getWifiIp(mContext),
+//                "micronaut.server.port", 8080);
+//
+//        return PropertySource.of(Environment.ANDROID, configMap);
+//    }
 
     public void startWebServer() {
         Log.d(TAG, "startWebServer");
@@ -38,7 +38,7 @@ public class ServerController {
         try {
             mServerContext = Micronaut.build(Environment.ANDROID)
                     .mainClass(this.getClass())
-                    .propertySources(getPropertySource())
+//                    .propertySources(getPropertySource())
                     .start();
         } catch (Exception e) {
             Log.e(TAG, "startWebServer e:" + e);
